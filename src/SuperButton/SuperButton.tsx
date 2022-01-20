@@ -1,5 +1,5 @@
 import s from './SuperButton.module.css'
-
+import {Button} from "@material-ui/core";
 
 type SuperButtonPropsType = {
     title: string
@@ -14,7 +14,7 @@ export function SuperButton(props: SuperButtonPropsType) {
 
     return (
         <div>
-            <button disabled={props.disabled} onClick={onClickCallback} className={s.superButton}>{props.title}</button>
+            <Button variant="outlined" disabled={props.disabled} onClick={onClickCallback}>{props.title}</Button>
         </div>
     )
 

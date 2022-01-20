@@ -1,7 +1,8 @@
 .color {
+    font-size: 20px;
     color: red;
-    font-size: 60px;
-    border-radius: 10px;
-    border: 2px solid red;
+}
 
+.span {
+    font-size: 20px;
 }

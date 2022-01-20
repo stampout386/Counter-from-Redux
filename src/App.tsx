@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import './App.css';
 import {CounterContainer} from "./CounterContainer/CounterContainer";
 import {CounterSetting} from "./CounterSettings/CounterSetting";
+import {Container, Grid} from "@material-ui/core";
+import {Paper} from "@mui/material";
 
 function App() {
 
@@ -13,6 +15,35 @@ function App() {
     let [maxValue, setMaxValue] = useState<number>(maxValueAsString ? JSON.parse(maxValueAsString) : 5)
     let [counterValue, setCounterValue] = useState<number>(startValue)
     const [error, setError] = useState<string>('')
+    const errorBoolean = error === 'Incorrect value!';
+
+
+    const minValueHandler = (value: number) => {
+        setStartValue(value)
+        if (value < maxValue && value > -1) {
+            setError('Enter values and press \'set\'')
+        } else {
+            setError('Incorrect value!')
+        }
+    }
+
+    const maxValueHandler = (value: number) => {
+        setMaxValue(value)
+        if (value > startValue && value > -1) {
+            setError('Enter values and press \'set\'')
+        } else {
+            setError('Incorrect value!')
+        }
+    }
+
+    const valueHandlerClick = () => {
+        setStartValue(startValue)
+        setMaxValue(maxValue)
+        setCounterValue(startValue)
+        setError('')
+        localStorage.setItem('startValue', JSON.stringify(startValue))
+        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+    }
 
 
     const onClickInc = () => {
@@ -25,40 +56,40 @@ function App() {
 
     const disabledInc = counterValue === maxValue || error !== '';
     const disabledReset = counterValue === startValue || error !== '';
-    console.log(disabledInc);
-    console.log(disabledReset);
 
-
-    const valueHandler = (startValue: number, maxValue: number) => {
-        setStartValue(startValue)
-        setMaxValue(maxValue)
-        setCounterValue(startValue)
-    }
-    const errorHandler = (error: string) => {
-        setError(error)
-    }
 
     return (
-        <div className="App">
-            <CounterSetting
-                titleButtonSet={'Set'}
-                valueHandler={valueHandler}
-                startValue={startValue}
-                maxValue={maxValue}
-                errorHandler={errorHandler}
-            />
+        <div className='App'>
+            <Grid container spacing={5}>
+                <Grid item>
 
-            <CounterContainer
-                error={error}
-                endValue={maxValue}
-                counterState={counterValue}
-                titleButtonInc={'Inc'}
-                titleButtonReset={'Reset'}
-                onClickInc={onClickInc}
-                onClickReset={onClickReset}
-                disabledInc={disabledInc}
-                disabledReset={disabledReset}
-            />
+                    <Paper elevation={3}>
+                        <CounterSetting
+                            startValue={startValue}
+                            maxValue={maxValue}
+                            maxValueHandler={maxValueHandler}
+                            minValueHandler={minValueHandler}
+                            valueHandlerClick={valueHandlerClick}
+                            error={errorBoolean}
+                        />
+                    </Paper>
+                </Grid>
+                <Grid item>
+                    <Paper elevation={3}>
+                        <CounterContainer
+                            error={error}
+                            endValue={maxValue}
+                            counterState={counterValue}
+                            titleButtonInc={'Inc'}
+                            titleButtonReset={'Reset'}
+                            onClickInc={onClickInc}
+                            onClickReset={onClickReset}
+                            disabledInc={disabledInc}
+                            disabledReset={disabledReset}
+                        />
+                    </Paper>
+                </Grid>
+            </Grid>
         </div>
     );
 }

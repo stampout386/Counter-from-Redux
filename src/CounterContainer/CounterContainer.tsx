@@ -17,7 +17,7 @@ type CounterContainerPropsType = {
 
 export function CounterContainer(props: CounterContainerPropsType) {
     return (
-        <div className={s.container}>
+        <div className={s.settings}>
             <div className={s.counter}>
                 <Counter counterValue={props.counterState} endValue={props.endValue} error={props.error}/>
             </div>

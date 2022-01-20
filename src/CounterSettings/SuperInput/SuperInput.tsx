@@ -1,5 +1,6 @@
 import {ChangeEvent, useState} from "react";
 import s from './SuperInput.module.css'
+import {TextField} from "@material-ui/core";
 
 type SuperInput = {
     title: string
@@ -21,8 +22,18 @@ export const SuperInput = (props: SuperInput) => {
 
     return (
         <div>
-            <span>{props.title}</span>
-            <input value={value} type={'number'} onChange={onChangeCallback} className={inputStyle}/>
+            {/*<span>{props.title}</span>*/}
+            <TextField
+                error={props.style}
+                value={value} onChange={onChangeCallback}
+                id="outlined-number"
+                label={props.title}
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+            {/*<input value={value} type={'number'} onChange={onChangeCallback} className={inputStyle}/>*/}
         </div>
     );
 }
