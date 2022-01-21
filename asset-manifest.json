@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Counter-incubator/static/css/main.2bfc1039.css",
+    "main.js": "/Counter-incubator/static/js/main.4f5e486a.js",
+    "index.html": "/Counter-incubator/index.html",
+    "main.2bfc1039.css.map": "/Counter-incubator/static/css/main.2bfc1039.css.map",
+    "main.4f5e486a.js.map": "/Counter-incubator/static/js/main.4f5e486a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2bfc1039.css",
+    "static/js/main.4f5e486a.js"
+  ]
+}
