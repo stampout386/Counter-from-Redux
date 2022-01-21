@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {CounterContainer} from "./CounterContainer/CounterContainer";
 import {CounterSetting} from "./CounterSettings/CounterSetting";
-import {Container, Grid} from "@material-ui/core";
+import {Grid} from "@material-ui/core";
 import {Paper} from "@mui/material";
 
 function App() {
