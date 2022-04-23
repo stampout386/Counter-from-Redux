@@ -15,25 +15,26 @@ const initialState = {
 export type initialStateType = {
     startValue: number,
     maxValue: number,
-    counterValue: number,
     error: string,
-}
+    counterValue: number,
 
-const SET_START_VALUE = 'SET_START_VALUE';
+}
+const START_VALUE = 'START_VALUE'
 const SET_MAX_VALUE = 'SET_MAX_VALUE';
 const SET_ERROR = 'SET_ERROR';
 const SET_COUNTER_VALUE = 'SET_COUNTER_VALUE';
 
-export const counterReducer = (state: initialStateType = initialState, action: ActionType) => {
+export const counterReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
     switch (action.type) {
-        case SET_START_VALUE: {
-            return {...state, startValue: action.value}
+        case START_VALUE: {
+            return {
+                ...state, startValue: action.startValue
+            }
         }
         case SET_MAX_VALUE : {
-            return {...state, maxValue: action.value}
+            return {...state, maxValue: action.maxValue}
         }
         case SET_ERROR: {
-            // @ts-ignore
             return {...state, error: action.error}
         }
         case SET_COUNTER_VALUE: {
@@ -45,16 +46,16 @@ export const counterReducer = (state: initialStateType = initialState, action: A
 }
 
 
-export const setStartValueAC = (value: number) => {
+export const setStartValueAC = (startValue: number) => {
     return {
-        type: SET_START_VALUE,
-        value
-    }
+        type: START_VALUE,
+        startValue
+    } as const
 }
-export const setMaxValueAC = (value: number) => {
+export const setMaxValueAC = (maxValue: number) => {
     return {
         type: SET_MAX_VALUE,
-        value
+        maxValue
     } as const
 }
 export const setErrorAC = (error: string) => {
@@ -71,7 +72,7 @@ export const setCounterValueAC = (value: number) => {
     } as const
 }
 
-type ActionType = |
+type ActionType =
     ReturnType<typeof setStartValueAC> |
     ReturnType<typeof setMaxValueAC> |
     ReturnType<typeof setErrorAC> |

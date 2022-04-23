@@ -12,13 +12,6 @@ import {setCounterValueAC, setErrorAC, setMaxValueAC, setStartValueAC} from "./r
 
 function App() {
 
-
-    // let [startValue, setStartValue] = useState<number>(startValueAsString ? JSON.parse(startValueAsString) : 0)
-    // // let [maxValue, setMaxValue] = useState<number>(maxValueAsString ? JSON.parse(maxValueAsString) : 5)
-    // let [counterValue, setCounterValue] = useState<number>(startValue)
-    // const [error, setError] = useState<string>('')
-
-
     const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue);
     const startValue = useSelector<AppRootStateType, number>(state => state.counter.startValue);
     const error = useSelector<AppRootStateType, string>(state => state.counter.error);
