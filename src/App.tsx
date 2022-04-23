@@ -5,21 +5,31 @@ import {CounterContainer} from "./CounterContainer/CounterContainer";
 import {CounterSetting} from "./CounterSettings/CounterSetting";
 import {Grid} from "@material-ui/core";
 import {Paper} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store";
+import {initialStateType, setStartValueAC} from "./redux/counterReducer";
+
 
 function App() {
 
-    const startValueAsString = localStorage.getItem('startValue');
-    const maxValueAsString = localStorage.getItem('maxValue');
 
-    let [startValue, setStartValue] = useState<number>(startValueAsString ? JSON.parse(startValueAsString) : 0)
-    let [maxValue, setMaxValue] = useState<number>(maxValueAsString ? JSON.parse(maxValueAsString) : 5)
-    let [counterValue, setCounterValue] = useState<number>(startValue)
-    const [error, setError] = useState<string>('')
+    // let [startValue, setStartValue] = useState<number>(startValueAsString ? JSON.parse(startValueAsString) : 0)
+    // // let [maxValue, setMaxValue] = useState<number>(maxValueAsString ? JSON.parse(maxValueAsString) : 5)
+    // let [counterValue, setCounterValue] = useState<number>(startValue)
+    // const [error, setError] = useState<string>('')
+
+
+    const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue);
+    const startValue = useSelector<AppRootStateType, number>(state => state.counter.startValue);
+    const error = useSelector<AppRootStateType, string>(state => state.counter.error);
+    const counterValue = useSelector<AppRootStateType, number>(state => state.counter.counterValue);
+
+    const dispatch = useDispatch()
+
     const errorBoolean = error === 'Incorrect value!';
 
-
     const minValueHandler = (value: number) => {
-        setStartValue(value)
+        dispatch(setStartValueAC(value));
         if (value < maxValue && value > -1) {
             setError('Enter values and press \'set\'')
         } else {
@@ -37,7 +47,7 @@ function App() {
     }
 
     const valueHandlerClick = () => {
-        setStartValue(startValue)
+        dispatch(setStartValueAC(startValue));
         setMaxValue(maxValue)
         setCounterValue(startValue)
         setError('')

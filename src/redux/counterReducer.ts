@@ -12,16 +12,34 @@ const initialState = {
 
 }
 
-type initialStateType = {
+export type initialStateType = {
     startValue: number,
     maxValue: number,
     counterValue: number,
     error: string,
 }
 
+const SET_START_VALUE = 'SET_START_VALUE';
 
-export const counterReducer = (state: initialStateType = initialState, action: any) => {
-    switch (action) {
-
+export const counterReducer = (state: initialStateType = initialState, action: ActionType) => {
+    switch (action.type) {
+        case SET_START_VALUE: {
+            return {...state, startValue: action.value}
+        }
+        default:
+            return state
     }
 }
+
+
+export const setStartValueAC = (value: number) => {
+    return {
+        type: SET_START_VALUE,
+        value
+    }
+}
+
+export type setStartValueType = ReturnType<typeof setStartValueAC>
+
+
+type ActionType = setStartValueType
