@@ -7,7 +7,7 @@ import {Grid} from "@material-ui/core";
 import {Paper} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
-import {initialStateType, setStartValueAC} from "./redux/counterReducer";
+import {setCounterValueAC, setErrorAC, setMaxValueAC, setStartValueAC} from "./redux/counterReducer";
 
 
 function App() {
@@ -31,26 +31,29 @@ function App() {
     const minValueHandler = (value: number) => {
         dispatch(setStartValueAC(value));
         if (value < maxValue && value > -1) {
-            setError('Enter values and press \'set\'')
+            dispatch(setErrorAC('Enter values and press \'set\''))
         } else {
-            setError('Incorrect value!')
+            dispatch(setErrorAC('Incorrect value!'))
+
         }
     }
 
     const maxValueHandler = (value: number) => {
-        setMaxValue(value)
+        dispatch(setMaxValueAC(value))
+
         if (value > startValue && value > -1) {
-            setError('Enter values and press \'set\'')
+            dispatch(setErrorAC('Enter values and press \'set\''))
         } else {
-            setError('Incorrect value!')
+            dispatch(setErrorAC('Incorrect value!'))
         }
     }
 
     const valueHandlerClick = () => {
         dispatch(setStartValueAC(startValue));
-        setMaxValue(maxValue)
-        setCounterValue(startValue)
-        setError('')
+        dispatch(setMaxValueAC(maxValue))
+
+        dispatch(setCounterValueAC(startValue))
+        dispatch(setErrorAC(''))
         localStorage.setItem('startValue', JSON.stringify(startValue))
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
     }
@@ -58,10 +61,12 @@ function App() {
 
     const onClickInc = () => {
         const newCounterState = counterValue + 1;
-        setCounterValue(newCounterState)
+        dispatch(setCounterValueAC(newCounterState))
+
     }
     const onClickReset = () => {
-        setCounterValue(startValue)
+        dispatch(setCounterValueAC(startValue))
+
     }
 
     const disabledInc = counterValue === maxValue || error !== '';
